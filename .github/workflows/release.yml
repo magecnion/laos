@@ -82,21 +82,38 @@ jobs:
       #     push: true
       #     file: ./docker/ownership-node.local.Dockerfile
       #     tags: freeverseio/laos-ownership-node:${{ github.ref_name }}
-      - name: Update Release Description with subwasm info
-        run: |
-          gh release view ${{ github.ref_name }} --json body -q .body > description.txt
+      # - name: Update Release Description with subwasm info
+      #   run: |
+      #     gh release view ${{ github.ref_name }} --json body -q .body > description.txt
               
-          RUSTC_VERSION=$(echo ${{ steps.summary.outputs.rustc_version }} | tr -d '"')
-          SRTOOL_VERSION=${{ steps.summary.outputs.srtool_version }}
+      #     RUSTC_VERSION=$(echo ${{ steps.summary.outputs.rustc_version }} | tr -d '"')
+      #     SRTOOL_VERSION=${{ steps.summary.outputs.srtool_version }}
           
-          printf "\n\n## ${{ matrix.runtime.name }}\nThis runtime was built using %s with srtool %s\n" "$RUSTC_VERSION" "$SRTOOL_VERSION" >> description.txt
-          echo '```' >> description.txt
+      #     printf "\n\n## ${{ matrix.runtime.name }}\nThis runtime was built using %s with srtool %s\n" "$RUSTC_VERSION" "$SRTOOL_VERSION" >> description.txt
+      #     echo '```' >> description.txt
           
-          cat ${{ matrix.runtime.name }}-subwam-info.txt >> description.txt
+      #     cat ${{ matrix.runtime.name }}-subwam-info.txt >> description.txt
           
-          echo '```' >> description.txt
+      #     echo '```' >> description.txt
           
-          gh release edit ${{ github.ref_name }} --notes-file description.txt
+      #     gh release edit ${{ github.ref_name }} --notes-file description.txt
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up paths and runtime names
+        id: setup
+        run: |
+          RUNTIME_BLOB_NAME=$(echo ${{ matrix.runtime.package }} | sed 's/-/_/g').compact.compressed.wasm
+  
+          echo "RUNTIME_BLOB_NAME=$RUNTIME_BLOB_NAME" >> $GITHUB_ENV
+          echo "ASSET_PATH=./${{ matrix.runtime.path }}/target/srtool/wbuild/${{ matrix.runtime.package }}/$RUNTIME_BLOB_NAME" >> $GITHUB_ENV
+          echo "ASSET_NAME=$RUNTIME_BLOB_NAME" >> $GITHUB_ENV
+      - name: Upload Runtime to Release
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ${{ env.ASSET_PATH }}
+          asset_name: ${{ env.ASSET_NAME }}
+          asset_content_type: application/octet-stream
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload Ownership Wasm Binaries
