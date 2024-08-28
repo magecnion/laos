@@ -4,10 +4,10 @@ LAOS is the Universal layer 1 for digital assets across all blockchains, introdu
 
 ![LAOS Logo](docs/LAOS_logo.png)
 
-LAOS's main documentation can be found here:
+LAOS' main documentation can be found here:
 - **[LAOS Whitepaper](https://github.com/freeverseio/laos-whitepaper/blob/main/laos.pdf)**, for an in-depth, fully detailed description.
+- **[LAOS Developer Docs](https://docs.laosnetwork.io/)**, to start building your DApp using LAOS.
 - **[LAOS Litepaper](https://laosnetwork.io/downloads/LAOS_litepaper.pdf)**, for a high-level, use case oriented description.
-- **[SBP Roadmap](https://github.com/freeverseio/laos-roadmap)**, the engineering roadmap within the Substrate Builders Program, ending on Q1 2024.
 
 LAOS is fully open source and decentralized. The main code repositories are:
 
@@ -17,34 +17,43 @@ LAOS is fully open source and decentralized. The main code repositories are:
 
 * **[The Universal ERC721 Solidity Templates](https://github.com/freeverseio/laos-erc721)**. This template contains the minimal extensions of the ERC721 OpenZeppelin implementation that enables bridgeless minting and evolution in any EVM chain.
 
-LAOS is targeting late Q1'2024 to bid for a Parachain slot on Polkadot.
-Presently, LAOS is accessible both via its canary Parachain in Kusama, named **K-LAOS**, which stands for **K**usama LAOS, as well as through its test network, named **Caladan**. Please read the [disclaimer about K-LAOS](https://www.laosfoundation.io/disclaimer-klaos).
+LAOS secured a slot as a Parachain in Polkadot after winning auction 68,
+and LAOS Mainnet started producing blocks on July 3rd, 2024.
 
-### KLAOS Parachain: 
-* EVM Public RPC endpoint: https://rpc.klaos.laosfoundation.io
-* EVM Chain ID: 2718
-* EVM Currency Symbol: KLAOS 
-* EVM block explorer: https://blockscout.klaos.laosfoundation.io
-* Substrate RPC endpoint: [wss://rpc.klaos.laosfoundation.io](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.klaos.laosfoundation.io#/rpc)   
-* ParaId: 3336
-* EVM PalletInstance: 51
+### LAOS Sigma Testnet
 
-### Caladan Parachain: 
-* EVM Public RPC endpoint: https://caladan.gorengine.com/own
-* EVM Chain ID: 667
-* EVM Currency Symbol: CLD 
-* EVM block explorer: https://caladan.gorengine.com 
-* Substrate RPC endpoint: [wss://caladan.gorengine.com/own](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fcaladan.gorengine.com%2Fown#/explorer)
-* ParaId: 2900
-* EVM PalletInstance: 51
+LAOS Sigma serves as the testnet for LAOS, currently maintained by the LAOS Foundation.
+All development undergoes final testing in LAOS Sigma before being integrated in LAOS Mainnet.
+
+You may use LAOS Sigma to test staking, or to develop and test your DApp, before launching to LAOS Mainnet.
+
+* Testnet: **LAOS Sigma**
+* Substrate RPC endpoint: [wss://rpc.laossigma.laosfoundation.io](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.laossigma.laosfoundation.io#/rpc)   
+* EVM Public RPC endpoint: https://rpc.laossigma.laosfoundation.io
+* EVM block explorer: https://sigma.explorer.laosnetwork.io/
+* ParaId: 4006
+* EVM Chain ID: 62850
+* Chainlist Entry: https://chainlist.org/chain/62850
+
+### LAOS Mainnet
+
+LAOS Mainnet is secured by Polkadot's validators by being a Parachains since July 3rd, 2024.
+Check [LAOS Roadmap](https://laosnetwork.io/roadmap-after-tge) for a list of features planned to be activated during the next months.
+
+* Substrate RPC endpoint: [wss://rpc.laos.laosfoundation.io](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.laos.laosfoundation.io#/rpc)   
+* ParaId: 3370
+* EVM Chain ID: 6283
+* Chainlist Entry: https://chainlist.org/chain/6283
 
 ## Running your own node
 
 The quickest entry point to run your own LAOS Parachain node:
 ```
-$ docker run freeverseio/laos-ownership-node:<release> --chain=<chain_name>
+$ docker run freeverseio/laos-node:<release> --chain=<chain_name>
 ```
-using either `klaos` or `caladan` for `chain_name`. Available releases are published [here](https://github.com/freeverseio/laos/releases).
+where:
+* `<chain_name>` shall be set to `laos` or `laos-sigma` to operate on the mainnet /testnet, and
+* `<release>` shall be chosen among the available releases published [here](https://github.com/freeverseio/laos/releases).
 
 # Contributing
 
