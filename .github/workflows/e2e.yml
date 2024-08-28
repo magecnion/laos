@@ -8,9 +8,7 @@ on:
 
 jobs:
   e2e-tests:
-    runs-on:
-      group: laos
-      labels: ubuntu-16-cores
+    runs-on: ubuntu-latest
     if: ${{ github.event_name != 'pull_request_review' || github.event.review.state == 'approved' }}
     steps:
       - uses: actions/checkout@v3
